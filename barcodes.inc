@@ -13,6 +13,7 @@ var Barcode = function() {
     
     var _barcode = _function(code, parameters);
     this.parameters = _barcode.parameters || parameters || {};
+    this.format = type;
     this.rows = _barcode.rows;
     this.cols = _barcode.cols;
     this.data = _barcode.data;
