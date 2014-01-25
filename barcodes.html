@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Barcodes Sample</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
+    <script type="text/javascript" src="barcodes.min.js"></script>
+    <script type="text/javascript">
+      var draw = function() {
+        var hub3_code = "HRVHUB30\nHRK\n" + 
+            "000000000012355\n"+
+            "ŽELJKO SENEKOVIĆ\n"+
+            "IVANEČKA ĐULICA 125\n"+
+            "42000 VARAŽDIN\n"+
+            "2DBK d.d.\n"+
+            "ALKARSKI PROLAZ 13B\n"+
+            "21230 SINJ\n"+
+            "HR1210010051863000160\n"+
+            "HR01\n"+
+            "7269-68949637676-00019\n"+
+            "COST\n"+
+            "Troškovi za 1. mjesec\n";      
+
+        p = new Barcode('pdf417', hub3_code);
+        canvas1 = p.createCanvas(3);
+        canvas1.setAttribute('style', 'border: 1px solid red; margin: 10px;');
+        var image1 = document.createElement('img');
+        image1.setAttribute('src', p.createImageData(3));
+        image1.setAttribute('style', 'border: 1px solid blue; margin: 10px;');
+        
+
+        q = new Barcode('qrcode', hub3_code, { version: 10 });
+        canvas2 = q.createCanvas(3);
+        canvas2.setAttribute('style', 'border: 1px solid red; margin: 10px;');
+
+        var image2 = document.createElement('img');
+        image2.setAttribute('src', q.createImageData(3));
+        image2.setAttribute('style', 'border: 1px solid blue; margin: 10px;');
+
+        document.body.appendChild(canvas1);
+        document.body.appendChild(canvas2);
+        document.body.appendChild(document.createElement("br"));
+        document.body.appendChild(image1);
+        document.body.appendChild(image2);
+      
+      }
+      var p, q, canvas1, canvas2;
+
+    </script>
+  </head>
+  <body onload="draw();">
+  </body>
+</html>
