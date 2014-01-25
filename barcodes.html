@@ -2,51 +2,119 @@
 <html>
   <head>
     <title>Barcodes Sample</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script type="text/javascript" src="barcodes.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
-      var draw = function() {
-        var hub3_code = "HRVHUB30\nHRK\n" + 
-            "000000000012355\n"+
-            "ŽELJKO SENEKOVIĆ\n"+
-            "IVANEČKA ĐULICA 125\n"+
-            "42000 VARAŽDIN\n"+
-            "2DBK d.d.\n"+
-            "ALKARSKI PROLAZ 13B\n"+
-            "21230 SINJ\n"+
-            "HR1210010051863000160\n"+
-            "HR01\n"+
-            "7269-68949637676-00019\n"+
-            "COST\n"+
-            "Troškovi za 1. mjesec\n";      
+      var redraw = function(text) {
+        console.log('Generating barcodes for "' + text + '"');
+        var pdf417 = new Barcode('pdf417', text);
+        var qrcode = new Barcode('qrcode', text);
 
-        p = new Barcode('pdf417', hub3_code);
-        canvas1 = p.createCanvas(3);
-        canvas1.setAttribute('style', 'border: 1px solid red; margin: 10px;');
-        var image1 = document.createElement('img');
-        image1.setAttribute('src', p.createImageData(3));
-        image1.setAttribute('style', 'border: 1px solid blue; margin: 10px;');
+        $('#pdf417-canvas,#pdf417-image,#qrcode-canvas,#qrcode-image').children().remove();
         
+        $('#pdf417-canvas').append(pdf417.createCanvas(3));
+        $('#pdf417-image').append($('\<img/>').attr('src', pdf417.createImageData(3)));
+        $('#qrcode-canvas').append(qrcode.createCanvas(3));
+        $('#qrcode-image').append($('\<img/>').attr('src', qrcode.createImageData(3)));
 
-        q = new Barcode('qrcode', hub3_code, { version: 10 });
-        canvas2 = q.createCanvas(3);
-        canvas2.setAttribute('style', 'border: 1px solid red; margin: 10px;');
+      };
 
-        var image2 = document.createElement('img');
-        image2.setAttribute('src', q.createImageData(3));
-        image2.setAttribute('style', 'border: 1px solid blue; margin: 10px;');
+      $(document).ready(function() {
+        redraw("Enter some text...");
 
-        document.body.appendChild(canvas1);
-        document.body.appendChild(canvas2);
-        document.body.appendChild(document.createElement("br"));
-        document.body.appendChild(image1);
-        document.body.appendChild(image2);
-      
-      }
-      var p, q, canvas1, canvas2;
+        $(document.body).on('change paste keyup', function() {
+          var value = $('#data').val();
+          $('#generate').prop('disabled', value == '');
+        });
+        
+        $('#generate').on('click', function(event) {
+          var value = $('#data').val();
+          if (value != '') redraw(value);
+          event.preventDefault();
+        });
+      });
 
     </script>
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 50px;
+      }
+      #data {
+        width: 500px;
+      }
+      .barcode-container {
+        text-align: center;
+      }
+      .barcode img,
+      .barcode canvas {
+        padding: 6px;
+        border: 6px solid #ccc;
+        border-radius: 6px;
+      }
+    </style>
+
   </head>
-  <body onload="draw();">
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">JS Barcodes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <h1>A simple library for barcodes in JavaScript</h1>
+
+      <p class="lead">Write something, then hit the <span class="text-primary">Generate</span> button to see it in action...</p>
+
+      <p>This will generate four barcodes, two <em>PDF417</em> and two <em>QR-code</em>s. The difference between
+         these two versions is that one is genrated with an <strong>HTML5</strong> <code>&lt;canvas/&gt;</code> element,
+         while the other is automatically created as a <strong>GIF</code> image, with a <code>data;base64,...</code> source.</p>
+
+      <h3>An example</h3>
+      <form role="form" class="form-inline">
+        <div class="form-group">
+          <label for="data" class="sr-only">Barcode data</label>
+          <input type="text" class="form-control" id="data" placeholder="Enter some text...">
+        </div>
+        <button type="submit" class="btn btn-primary" disabled id="generate">Generate</button>
+      </form>
+
+      <h3>Generated barcodes</h3>
+      
+      <div class="row">
+        <div class="col-md-4 barcode-container">
+          <h5>PDF417, Canvas version</h5>
+          <div id="pdf417-canvas" class="barcode"></div>
+        </div>
+        
+        <div class="col-md-4 barcode-container">
+          <h5>PDF417, Image version</h5>
+          <div id="pdf417-image" class="barcode"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 barcode-container">
+          <h5>QR-code, Canvas version</h5>
+          <div id="qrcode-canvas" class="barcode"></div>
+        </div>
+        
+        <div class="col-md-4 barcode-container">
+          <h5>QR-code, Image version</h5>
+          <div id="qrcode-image" class="barcode"></div>
+        </div>
+      </div>
+      
+
+    </div><!-- /.container -->
   </body>
 </html>
