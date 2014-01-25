@@ -4,7 +4,7 @@ JS BARCODES
 A small library to create PDF417 barcodes (as in airline boarding passes) and
 QR-CODE (as in little pixelated squares) from JavaScript in a "human" way.
 
-You can see it (in action here)[http://rawgithub.com/usrz/javascript-barcodes/master/barcodes.html].
+You can see it [in action here](http://rawgithub.com/usrz/javascript-barcodes/master/barcodes.html).
 
 LICENSE
 =======
