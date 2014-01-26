@@ -16,15 +16,21 @@
 
         $('#pdf417-canvas,#pdf417-image,#qrcode-canvas,#qrcode-image').children().remove();
         
-        $('#pdf417-canvas').append(pdf417.createCanvas(3));
-        $('#pdf417-image').append($('\<img/>').attr('src', pdf417.createImageData(3)));
-        $('#qrcode-canvas').append(qrcode.createCanvas(3));
-        $('#qrcode-image').append($('\<img/>').attr('src', qrcode.createImageData(3)));
+        $('#pdf417-canvas').append($(pdf417.createCanvas(3)));
+        $('#pdf417-image').append($('\<img/>')
+                              .attr('src', pdf417.createImageData(3))
+                              .attr('alt', 'PDF417 image version')
+                              .attr('title', 'PDF417 image version, right click to save!'));
 
+        $('#qrcode-canvas').append(qrcode.createCanvas(3));
+        $('#qrcode-image').append($('\<img/>')
+                              .attr('src', qrcode.createImageData(3))
+                              .attr('alt', 'QR-code image version')
+                              .attr('title', 'QR-code image version, right click to save!'));
       };
 
       $(document).ready(function() {
-        redraw("Enter some text...");
+        redraw("Enter some text&hellip;");
 
         $(document.body).on('change paste keyup', function() {
           var value = $('#data').val();
@@ -43,7 +49,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
       body {
-        padding-top: 50px;
+        padding: 50px 0px;
       }
       #data {
         width: 500px;
@@ -56,6 +62,35 @@
         padding: 6px;
         border: 6px solid #ccc;
         border-radius: 6px;
+      }
+      h4 {
+        margin-top: 20px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 90%;
+      }
+      th, td {
+        padding: 5px;
+        border: 2px solid white;
+      }
+      th {
+        background-color: #ccc;
+      }
+      td {
+        background-color: #eee;
+      }
+      td.code {
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        white-space: nowrap;
+        font-size: 90%;
+      }
+      thead, tbody {
+        border-top: 5px solid white;
+        border-bottom: 5px solid white;
+      }
+      table code {
+        background: none;
       }
     </style>
 
@@ -73,22 +108,27 @@
 
       <h1>A simple library for barcodes in JavaScript</h1>
 
-      <p class="lead">Write something, then hit the <span class="text-primary">Generate</span> button to see it in action...</p>
+      <p class="lead">
+        Write something, hit the <span class="text-primary">Generate</span>
+        button, then point your reader to the screen!
+      </p>
 
-      <p>This will generate four barcodes, two <em>PDF417</em> and two <em>QR-code</em>s. The difference between
-         these two versions is that one is genrated with an <strong>HTML5</strong> <code>&lt;canvas/&gt;</code> element,
-         while the other is automatically created as a <strong>GIF</code> image, with a <code>data;base64,...</code> source.</p>
+      <p>This will generate four barcodes, two <em>PDF417</em> barcodes and two
+         <em>QR-code</em>s. The difference between the two versions is that one
+         is generated with an<code>&lt;canvas &hellip;/&gt;</code> element, while the
+         other is automatically created as a <strong>GIF</strong> image, with a
+         <code>data;base64,&hellip;</code> source.</p>
 
-      <h3>An example</h3>
+      <h2>An example</h2>
       <form role="form" class="form-inline">
         <div class="form-group">
           <label for="data" class="sr-only">Barcode data</label>
-          <input type="text" class="form-control" id="data" placeholder="Enter some text...">
+          <input type="text" class="form-control" id="data" placeholder="Enter some text &hellip;">
         </div>
         <button type="submit" class="btn btn-primary" disabled id="generate">Generate</button>
       </form>
 
-      <h3>Generated barcodes</h3>
+      <h4>Generated barcodes</h4>
       
       <div class="row">
         <div class="col-md-4 barcode-container">
@@ -114,6 +154,272 @@
         </div>
       </div>
       
+      <h2>API and use</h2>
+      
+      <p>
+        The whole API resides in a single loadable JavaScript library
+        <code>barcodes.min.js</code> <small>(available both
+        <a href="barcodes.min.js" download>minified</a> and
+        <a href="barcodes.js" download>non-minified</a>)</small>.
+      </p>
+
+      <p>
+        After loading the library, the <code>Barcode</code> object should be
+        available; to create a new Barcode simply instantiate it:
+        <code>new Barcode(<em>type</em>, <em>data</em>, <em>params</em>);</code>
+      </p>
+
+      <p>
+        The constants enumerated below are all accessible by referencing
+        <code>Barcode.<em>CONSTANT_NAME</em></code> in the code.
+      </p>
+      
+      <h4>Constructor parameters</h4>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Description</th>
+            <th>Constant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2" class="code"><em>type</em></td>
+            <td class="code">pdf417</td>
+            <td>Create a <a href="http://en.wikipedia.org/wiki/PDF417">PDF417</a> barcode</td>
+            <td class="code">PDF417_FORMAT</td>
+          </tr>
+          <tr>
+            <td class="code">qrcode</td>
+            <td>Create a <a href="http://en.wikipedia.org/wiki/QR_code">QR-code</a></td>
+            <td class="code">QRCODE_FORMAT</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td class="code"><em>data</em></td>
+            <td>&hellip;</td>
+            <td>The text data to be included in the generated barcode</td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td class="code"><em>parameters</em></td>
+            <td class="code">{ <em>key</em>: <em>value</em>, &hellip; }</td>
+            <td>Additional parameters, dependent on barcode type. See <a href="#parameters">below</a> for details</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Barcode object properties</h4>
+      
+      <p>
+        The <code>Barcode</code> object has few properties:
+      </p>
+
+      <ul>
+        <li><code>cols</code>: the number of columns present in the generated barcode.</li>
+        <li><code>rows</code>: the number of rows present in the generated barcode.</li>
+        <li><code>contents</code>: the string encoded in the barcode, as specified in the constructor.</li>
+        <li><code>data</code>: an array of arrays of booleans, containing the barcode data.</li>
+        <li><code>format</code>: the format of the barcode (either <code>pdf417</code> or <code>qrcode</code>).</li>
+        <li><code>parameters</code>: the parameters used for this barcode, normalized after construction.</li>
+      </ul>
+
+      <h4>Barcode object methods</h4>
+      
+      <p>
+        The <code>Barcode</code> object has some methods to generate a visual
+        representation of a barcode:
+      </p>
+
+      <ul>
+        <li><code>createCanvas()</code>: create a <code>&lt;canvas &hellip;/&gt;</code> element containing the barcode.</li>
+        <li><code>createCanvas(scale)</code>: as above, but scale the barcode by the specified factor.</li>
+        <li><code>createCanvas(scaleX, scaleY)</code>: as above, but scale <em>X</em> and <em>Y</em> independently.</li>
+        <li><code>createImageData()</code>: create a <strong>GIF</strong> image data URL to use with
+            <code>&lt;img &hellip;/&gt;</code> tags <small>(this does not use <code>&lt;canvas &hellip;/&gt;</code>)</small>.</li>
+        <li><code>createImageData(scale)</code>: as above, but scale the barcode by the specified factor.</li>
+        <li><code>createImageData(scaleX, scaleY)</code>: as above, but scale <em>X</em> and <em>Y</em> independently.</li>
+      </ul>
+
+      <h4>Notes</h4>
+      
+      <p>
+        Please be aware that barcodes should always include a bit of white space
+        around them in order to be recognized properly.
+      </p>
+      <p>
+        This library generates edge-to-edge images, therefore any elements those
+        barcodes should be displayed within should be properly padded, and have
+        a <strong>white</strong> background.
+      </p>
+
+      <h4>Code sample</h4>
+      
+      <p>
+        Using <a href="http://www.jquery.org/">JQuery</a> as a helper:
+      </p>
+      
+      <pre>
+var bc = new Barcode(Barcode.QRCODE,
+                     'Hello, world! This is a barcode',
+                     { version: 5,
+                       errorCorrectionLevel: 3 });
+
+$('#mydiv').append($('&lt;img/&gt;')
+               .attr('src', bc.createImageData(3))
+               .attr('alt', 'QR-code')
+               .attr('title', bc.contents));</pre>
+
+      <h4 id="parameters">Barcode-specific extra parameters</h5>
+
+      <h5>PDF417 extra parameters</h5>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Description</th>
+            <th>Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="code">aspectRatio</td>
+            <td><em>number</em></td>
+            <td>The aspect ratio <code>(width/height)</code> of the generated barcode</td>
+            <td class="code">2</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td class="code" rowspan="10">errorCorrectionLevel</td>
+            <td class="code">-1</td>
+            <td class=>Automatic choice of correction level</td>
+            <td class="code" rowspan="10">-1</td>
+          </tr>
+          <tr>
+            <td class="code">0</td>
+            <td class=>No error correction</td>
+          </tr>
+          <tr>
+            <td class="code">1</td>
+            <td class=>Minimal error correction</td>
+          </tr>
+          <tr>
+            <td class="code">2</td>
+            <td class=>&hellip;</td>
+          </tr>
+          <tr>
+            <td class="code">3</td>
+            <td class=>&hellip;</td>
+          </tr>
+          <tr>
+            <td class="code">3</td>
+            <td class=>&hellip;</td>
+          </tr>
+          <tr>
+            <td class="code">5</td>
+            <td class=>&hellip;</td>
+          </tr>
+          <tr>
+            <td class="code">6</td>
+            <td class=>&hellip;</td>
+          </tr>
+          <tr>
+            <td class="code">7</td>
+            <td class=>&hellip;</td>
+          </tr>
+          <tr>
+            <td class="code">8</td>
+            <td class=>Maximum error correction</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h5>QR-code extra parameters</h5>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Description</th>
+            <th>Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="code" rowspan="10">version</td>
+            <td class="code">1</td>
+            <td class=>Create a <em>version 1</code> (21x21) QR-code</td>
+            <td class="code" rowspan="10">4</td>
+          </tr>
+          <tr>
+            <td class="code">2</td>
+            <td class=>Create a <em>version 2</code> (25x25) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">3</td>
+            <td class=>Create a <em>version 3</code> (29x29) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">4</td>
+            <td class=>Create a <em>version 4</code> (33x33) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">5</td>
+            <td class=>Create a <em>version 5</code> (37x37) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">6</td>
+            <td class=>Create a <em>version 6</code> (41x41) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">7</td>
+            <td class=>Create a <em>version 7</code> (45x45) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">8</td>
+            <td class=>Create a <em>version 8</code> (49x49) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">9</td>
+            <td class=>Create a <em>version 9</code> (53x53) QR-code</td>
+          </tr>
+          <tr>
+            <td class="code">10</td>
+            <td class=>Create a <em>version 10</code> (57x57) QR-code</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td class="code" rowspan="4">errorCorrectionLevel</td>
+            <td class="code">0</td>
+            <td class=>Low correction level (7% of codewords can be restored)</td>
+            <td class="code" rowspan="4">2</td>
+          </tr>
+          <tr>
+            <td class="code">1</td>
+            <td class=>Medium correction level (15% of codewords can be restored)</td>
+          </tr>
+          <tr>
+            <td class="code">2</td>
+            <td class=>Quartile correction level (25% of codewords can be restored)</td>
+          </tr>
+          <tr>
+            <td class="code">3</td>
+            <td class=>High correction level (30% of codewords can be restored)</td>
+          </tr>
+        </tbody>
+      </table>
 
     </div><!-- /.container -->
   </body>
