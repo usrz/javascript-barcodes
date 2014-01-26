@@ -60,45 +60,8 @@ var Barcode = function() {
   /* ======================================================================= */
   /* Constants                                                               */
   /* ======================================================================= */
-  Object.defineProperty(Barcode, 'PDF417_FORMAT',                              { enumerable: true, value: 'pdf417' });
-                                                                              
-  Object.defineProperty(Barcode, 'PDF417_KEY_ASPECT_RATIO',                    { enumerable: true, value: 'aspectRatio' });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ASPECT_RATIO_DEFAULT',            { enumerable: true, value: 2 });
-                                                                              
-  Object.defineProperty(Barcode, 'PDF417_KEY_ERROR_CORRECTION_LEVEL',          { enumerable: true, value: 'errorCorrectionLevel' });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_DEFAULT',  { enumerable: true, value: -1 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_AUTO',     { enumerable: true, value: -1 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_0',        { enumerable: true, value: 0 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_1',        { enumerable: true, value: 1 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_2',        { enumerable: true, value: 2 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_3',        { enumerable: true, value: 3 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_4',        { enumerable: true, value: 4 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_5',        { enumerable: true, value: 5 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_6',        { enumerable: true, value: 6 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_7',        { enumerable: true, value: 7 });
-  Object.defineProperty(Barcode, 'PDF417_VAL_ERROR_CORRECTION_LEVEL_8',        { enumerable: true, value: 8 });
-  
-  Object.defineProperty(Barcode, 'QRCODE_FORMAT',                              { enumerable: true, value: 'qrcode' });
-  
-  Object.defineProperty(Barcode, 'QRCODE_KEY_VERSION',                         { enumerable: true, value: 'version' });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_DEFAULT',                 { enumerable: true, value: 4 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_1',                       { enumerable: true, value: 1 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_2',                       { enumerable: true, value: 2 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_3',                       { enumerable: true, value: 3 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_4',                       { enumerable: true, value: 4 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_5',                       { enumerable: true, value: 5 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_6',                       { enumerable: true, value: 6 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_7',                       { enumerable: true, value: 7 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_8',                       { enumerable: true, value: 8 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_9',                       { enumerable: true, value: 9 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_VERSION_10',                      { enumerable: true, value: 10 });
-
-  Object.defineProperty(Barcode, 'QRCODE_KEY_ERROR_CORRECTION_LEVEL',          { enumerable: true, value: 'errorCorrectionLevel' });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_ERROR_CORRECTION_LEVEL_DEFAULT',  { enumerable: true, value: -1 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_ERROR_CORRECTION_LEVEL_LOW',      { enumerable: true, value: 0 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_ERROR_CORRECTION_LEVEL_MEDIUM',   { enumerable: true, value: 1 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_ERROR_CORRECTION_LEVEL_QUARTILE', { enumerable: true, value: 2 });
-  Object.defineProperty(Barcode, 'QRCODE_VAL_ERROR_CORRECTION_LEVEL_HIGH',     { enumerable: true, value: 3 });
+  Object.defineProperty(Barcode, 'PDF417', { enumerable: true, value: 'pdf417' });
+  Object.defineProperty(Barcode, 'QRCODE', { enumerable: true, value: 'qrcode' });
 
   /* ======================================================================= */
   /* Little helper functions                                                 */
