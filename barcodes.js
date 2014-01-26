@@ -67,6 +67,8 @@ var Barcode = function() {
   /* Little helper functions                                                 */
   /* ======================================================================= */
   var normalizeScale = function(scaleX, scaleY) {
+    /* No parameter? Scale 1 */
+    if (scaleX == null) scaleX = scaleY = 1;
 
     /* One parameter? Scale both! */
     if ((scaleX != null) && (scaleY == null)) {
